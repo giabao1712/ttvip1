@@ -1,45 +1,24 @@
 
-// Thay đổi nội dung búc thư ở đây
-var letterContent = "Đây là nội dung của bức thư mà người ấy sẽ đọc được. Hãy viết gì đó cho người đó thôi nào. Cảm ơn bạn đã xem"
+const wrapper = document.querySelector(".wrapper");
+const question = document.querySelector(".question");
+const gif = document.querySelector(".gif");
+const yesBtn = document.querySelector(".yes-btn");
+const noBtn = document.querySelector(".no-btn");
 
-// Tốc độ viết chữ. Số càng nhỏ tốc độ càng nhanh. 50 là tốc độ khá phù hợp
-durationWrite = 50 
+yesBtn.addEventListener("click", () => {
+  question.innerHTML = "I love you too! 😘";
+  gif.src =
+    "https://media1.giphy.com/media/iCVzZwwE6QNAV2tEE0/giphy.gif";
+});
 
-// Hiệu ứng gõ chữ
+noBtn.addEventListener("mouseover", () => {
+  const noBtnRect = noBtn.getBoundingClientRect();
+  const maxX = window.innerWidth - noBtnRect.width;
+  const maxY = window.innerHeight - noBtnRect.height;
 
-function effectWrite () {
-    var boxLetter = document.querySelector(".letterContent")
-    letterContentSplited = letterContent.split("")
-    
-    letterContentSplited.forEach((val, index) => {
-        setTimeout(() => {
-            boxLetter.innerHTML += val    
-        }, durationWrite* index)
-    })
-}
+  const randomX = Math.floor(Math.random() * maxX);
+  const randomY = Math.floor(Math.random() * maxY);
 
-window.addEventListener("load", () => {
-    setTimeout(() => {
-        document.querySelector(".container").classList.add("active")
-    }, 500)
-})
-
-var openBtn = document.querySelector(".openBtn")
-openBtn.addEventListener("click", () => {
-    document.querySelector(".cardValentine").classList.add("active")
-    document.querySelector(".container").classList.add("close")
-})
-
-var cardValentine = document.querySelector(".cardValentine")
-
-cardValentine.addEventListener("click", () => {
-    cardValentine.classList.toggle("open")
-
-    if(cardValentine.className.indexOf("open") != -1) {
-        setTimeout(effectWrite, 500)
-    } else {
-        setTimeout(() => {
-            document.querySelector(".letterContent").innerHTML = ""
-        }, 1000)
-    }
-})
+  noBtn.style.left = randomX + "px";
+  noBtn.style.top = randomY + "px";
+});
